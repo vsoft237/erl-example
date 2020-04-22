@@ -1,0 +1,6 @@
+package pba;
+// syntax = "proto3";
+
+message m_1001_tos {
+    string aa = 1;
+}
