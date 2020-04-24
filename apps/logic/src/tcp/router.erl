@@ -5,6 +5,7 @@
 -module(router).
 
 -include("tcp.hrl").
+-include("all_pb.hrl").
 -include("logger.hrl").
 
 %% ====================================================================
@@ -14,23 +15,14 @@
 
 rout_msg(Args, State) ->
 	{Cmd, Data} = Args,
-	Mod = get_mod(Cmd),
-	RolePid = State#tcp_state.player_pid,
-	case RolePid of
+	MainPID = State#tcp_state.main_pid,
+	case MainPID of
 		undefined ->
-			Mod:cmd(Cmd, Data, State);
+			login:cmd(Cmd, Data);
 		_ ->
 			Msg = {cmd, {Cmd, Data}},
-			gen_server:cast(RolePid, Msg)
+			gen_server:cast(MainPID, Msg)
 	end.
 
-get_mod(Cmd) ->	
-	case Cmd div 100 of
-		10 ->
-			login;
-		99 ->
-			trade_order;
-		_ ->
-			player
-	end.
+
 
