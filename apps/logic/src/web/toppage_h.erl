@@ -37,15 +37,7 @@ allowed_methods(Req, State) ->
 
 
 handle(Req, State=#state{}) ->
-    lager:info("going here~p~n", [11111]),
-    HasBody = cowboy_req:has_body(Req),
-    lager:info("HasBody", [HasBody]),
-    AA = cowboy_req:parse_qs(Req),
-    lager:error("Headers~p~n", [AA]),
-    {ok, Req1} = cowboy_req:reply(200, [
-        {<<"content-type">>, <<"text/plain">>}
-    ], [<<"REST Hello World as text!">>]),
-    {ok, Req1, State}.
+    {ok, Req, State}.
 
 content_types_accepted(Req, State) ->
     {[
