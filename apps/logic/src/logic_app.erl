@@ -10,7 +10,9 @@
 -export([start/2, stop/1]).
 
 start(_StartType, _StartArgs) ->
-    logic_sup:start_link().
+	Reply = logic_sup:start_link(),
+	web:start(),
+	Reply.
 
 stop(_State) ->
     ok.
