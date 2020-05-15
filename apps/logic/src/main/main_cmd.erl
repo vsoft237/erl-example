@@ -1,14 +1,14 @@
 -module(main_cmd).
 
 %% ===========================API============================
--export([handle/2]).
+-export([handle/3]).
 
-handle(Cmd, Data) ->
+handle(Cmd, Data, ID) ->
 	case get_mod(Cmd) of
 		undefined ->
 			noreply;
 		Mod ->
-			Mod:handle(Cmd, Data)
+			Mod:handle(Cmd, Data, ID)
 	end.
 
 %% ===========================Internal============================
